@@ -5,23 +5,25 @@
 <title>مغامرة البطل – جدول ٤</title>
 
 <style>
-/* ===========================
-   الخلفية العامة
-   =========================== */
-
 body {
   margin: 0;
-  overflow: hidden;
   font-family: Arial, sans-serif;
   background: linear-gradient(#0a1a2f, #112d4e);
   color: #fff;
   text-align: center;
 }
 
-/* ===========================
-   شاشة البداية
-   =========================== */
+/* إطار اللعبة */
+#game-container {
+  width: 480px;
+  margin: 30px auto;
+  padding: 25px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.06);
+  box-shadow: 0 0 25px #00eaff;
+}
 
+/* شاشة البداية */
 #start-screen {
   position: fixed;
   inset: 0;
@@ -34,14 +36,14 @@ body {
 }
 
 #start-screen h1 {
-  font-size: 60px;
-  margin-bottom: 40px;
+  font-size: 55px;
+  margin-bottom: 30px;
   text-shadow: 0 0 20px #00eaff;
 }
 
 #start-btn {
-  padding: 20px 50px;
-  font-size: 32px;
+  padding: 18px 45px;
+  font-size: 30px;
   border: none;
   border-radius: 15px;
   background: #00eaff;
@@ -49,51 +51,24 @@ body {
   cursor: pointer;
 }
 
-#start-btn:hover {
-  background: #72f5ff;
-}
-
-/* زر الخروج من ملء الشاشة */
-#exit-fullscreen {
-  position: fixed;
-  top: 15px;
-  left: 15px;
-  background: rgba(0,0,0,0.5);
-  color: #fff;
-  padding: 10px 20px;
-  font-size: 22px;
-  border-radius: 10px;
-  cursor: pointer;
-  display: none;
-  z-index: 9999;
-}
-
-/* ===========================
-   البطل (CSS Warrior)
-   =========================== */
-
+/* ====== البطل ====== */
 #hero {
   width: 160px;
   height: 230px;
-  margin: 30px auto;
+  margin: 20px auto;
   position: relative;
-  animation: hero-float 2.2s infinite ease-in-out;
-  transform-origin: center;
+  animation: hero-float 2.2s infinite;
 }
 
-/* الرأس */
 #hero .head {
   width: 75px;
   height: 75px;
   background: #ffddb0;
   border-radius: 50%;
-  border: 5px solid #c79a53;
   margin: auto;
-  position: relative;
-  z-index: 3;
+  border: 5px solid #c79a53;
 }
 
-/* الخوذة */
 #hero .helmet {
   width: 90px;
   height: 55px;
@@ -101,10 +76,8 @@ body {
   border-radius: 50% 50% 20% 20%;
   position: absolute;
   top: -10px;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 35px;
   border: 4px solid #222;
-  z-index: 4;
 }
 
 #hero .helmet::after {
@@ -117,10 +90,8 @@ body {
   left: 50%;
   transform: translateX(-50%);
   border-radius: 10px;
-  box-shadow: 0 0 10px red;
 }
 
-/* الجسم */
 #hero .body {
   width: 60px;
   height: 110px;
@@ -129,10 +100,8 @@ body {
   margin-top: -5px;
   border-radius: 12px;
   border: 5px solid #0a3a74;
-  z-index: 2;
 }
 
-/* الدرع */
 #hero .armor {
   width: 55px;
   height: 65px;
@@ -141,11 +110,8 @@ body {
   margin-top: -95px;
   border-radius: 10px;
   border: 4px solid #aaa;
-  box-shadow: 0 0 15px #fff inset;
-  z-index: 5;
 }
 
-/* السيف */
 #hero .sword {
   width: 14px;
   height: 110px;
@@ -155,77 +121,47 @@ body {
   top: 60px;
   border-radius: 7px;
   border: 2px solid #ccc;
-  box-shadow: 0 0 12px #fff;
-  transform-origin: bottom center;
 }
 
-#hero .sword::after {
-  content: "";
-  width: 26px;
-  height: 14px;
-  background: #b8860b;
-  position: absolute;
-  bottom: -12px;
-  left: 50%;
-  transform: translateX(-50%);
-  border-radius: 4px;
-}
-
-/* حركة عائمة */
 @keyframes hero-float {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-12px); }
-  100% { transform: translateY(0); }
+  0% { transform: translateY(0);}
+  50% { transform: translateY(-10px);}
+  100% { transform: translateY(0);}
 }
 
-/* حركة هجوم */
-.hero-attack {
-  animation: hero-attack-anim 0.25s ease-out;
-}
-
-@keyframes hero-attack-anim {
-  0% { transform: translateY(-10px) rotate(-6deg) scale(1.05); }
-  100% { transform: translateY(0) rotate(0deg) scale(1); }
-}
-
-/* ===========================
-   الوحوش + شريط الطاقة
-   =========================== */
-
+/* ====== الوحش ====== */
 #monster-box {
-  width: 320px;
-  margin: 20px auto;
-  padding: 20px;
-  border-radius: 20px;
   background: #1f4068;
-  box-shadow: 0 0 20px #00eaff;
+  padding: 20px;
+  margin-top: 15px;
+  border-radius: 20px;
+  box-shadow: 0 0 15px #00eaff;
 }
 
 #monster {
-  font-size: 120px;
-  margin-bottom: 10px;
-  transition: transform 0.2s;
+  font-size: 110px;
+  transition: 0.2s;
 }
 
 .monster-hit {
-  animation: monster-shake 0.3s ease-in-out;
+  animation: monster-shake 0.3s;
 }
 
 @keyframes monster-shake {
-  0% { transform: translateX(0); }
-  20% { transform: translateX(-15px); }
-  40% { transform: translateX(15px); }
-  60% { transform: translateX(-15px); }
-  80% { transform: translateX(15px); }
-  100% { transform: translateX(0); }
+  0% { transform: translateX(0);}
+  25% { transform: translateX(-10px);}
+  50% { transform: translateX(10px);}
+  75% { transform: translateX(-10px);}
+  100% { transform: translateX(0);}
 }
 
+/* شريط الطاقة */
 #monster-hp {
   width: 90%;
-  height: 30px;
+  height: 25px;
   background: #333;
-  border-radius: 10px;
   margin: 10px auto;
+  border-radius: 10px;
   overflow: hidden;
 }
 
@@ -233,56 +169,36 @@ body {
   width: 100%;
   height: 100%;
   background: #29ff74;
-  transition: width 0.5s;
-}
-
-#question {
-  font-size: 35px;
-  margin-top: 10px;
+  transition: 0.4s;
 }
 
 input {
-  padding: 15px;
+  padding: 12px;
   font-size: 26px;
-  width: 220px;
-  text-align: center;
-  border-radius: 10px;
   border: none;
+  border-radius: 10px;
+  width: 200px;
+  text-align: center;
 }
 
 button {
-  padding: 18px 40px;
+  padding: 15px 35px;
   font-size: 28px;
   margin-top: 15px;
   background: #00eaff;
   border: none;
   border-radius: 15px;
   cursor: pointer;
-  color: black;
 }
-
-button:hover {
-  background: #72f5ff;
-}
-
-/* ===========================
-   معلومات المدرسة والمعلم
-   =========================== */
 
 #footer {
-  position: fixed;
-  bottom: 10px;
-  right: 0;
-  left: 0;
-  text-align: center;
-  font-size: 22px;
+  margin-top: 25px;
+  font-size: 20px;
   color: #90e0ef;
-  text-shadow: 0 0 10px #00eaff;
-  z-index: 999;
 }
 </style>
-
 </head>
+
 <body>
 
 <!-- شاشة البداية -->
@@ -291,8 +207,7 @@ button:hover {
   <button id="start-btn">ابدأ اللعب</button>
 </div>
 
-<!-- زر الخروج من ملء الشاشة -->
-<div id="exit-fullscreen">🔙 خروج</div>
+<div id="game-container">
 
 <!-- البطل -->
 <div id="hero">
@@ -304,225 +219,149 @@ button:hover {
 </div>
 
 <!-- المستوى -->
-<div id="level-box" style="font-size:30px; color:#00eaff;">
+<div style="font-size:30px; color:#00eaff;">
   مستواك: <span id="level">١</span>
 </div>
 
 <!-- النقاط -->
-<div id="score-box" style="font-size:26px; color:#00eaff; margin-top:10px;">
+<div style="font-size:26px; margin-top:10px; color:#00eaff;">
   نقاطك: <span id="score">٠</span>
 </div>
 
 <!-- الوحش -->
 <div id="monster-box">
   <div id="monster">👹</div>
-  <div id="monster-hp">
-      <div id="monster-hp-inner"></div>
-  </div>
-  <div style="font-size: 24px;">
+  <div id="monster-hp"><div id="monster-hp-inner"></div></div>
+  <div style="font-size: 22px;">
     طاقة الوحش: <span id="hp">١٠٠</span>%
   </div>
 </div>
 
 <!-- السؤال -->
-<div id="question">كم يساوي ٤ × ١ ؟</div>
+<div id="question" style="font-size:32px; margin-top:20px;">
+  كم يساوي ٤ × ١ ؟
+</div>
 
 <input type="number" id="answer" placeholder="اكتب الجواب">
-
 <br>
 <button onclick="attack()">هجوم ⚡</button>
 
-<!-- معلومات المدرسة -->
+</div>
+
+<!-- المدرسة -->
 <div id="footer">
   👨‍🏫 المعلم: محمد وجيه — 🏫 مدرسة عاطوف المختلطة
 </div>
 
 <script>
-/* ===========================
-   شاشة البداية + ملء الشاشة
-   =========================== */
-
-document.getElementById("start-btn").onclick = async function () {
-  const body = document.documentElement;
-
-  if (body.requestFullscreen) body.requestFullscreen();
-  else if (body.webkitRequestFullscreen) body.webkitRequestFullscreen();
-
-  document.getElementById("exit-fullscreen").style.display = "block";
+/* إخفاء شاشة البداية */
+document.getElementById("start-btn").onclick = function() {
   document.getElementById("start-screen").style.display = "none";
-
   newQuestion();
-  updateScore();
   updateMonster();
 };
 
-document.getElementById("exit-fullscreen").onclick = function () {
-  if (document.exitFullscreen) document.exitFullscreen();
-  else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
-};
-
-/* ===========================
-   الأصوات الداخلية
-   =========================== */
-
-function playSound(type) {
-  const ctx = new (window.AudioContext || window.webkitAudioContext)();
+/* صوت داخلي */
+function playSound(freq, type="sine") {
+  const ctx = new AudioContext();
   const osc = ctx.createOscillator();
   const gain = ctx.createGain();
-
+  osc.type = type;
+  osc.frequency.value = freq;
   osc.connect(gain);
   gain.connect(ctx.destination);
-
-  if (type === "hit") {
-    osc.frequency.value = 480;
-    gain.gain.setValueAtTime(0.4, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.25);
-  }
-
-  else if (type === "fail") {
-    osc.frequency.value = 200;
-    gain.gain.setValueAtTime(0.6, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
-  }
-
-  else if (type === "monsterCry") {
-    osc.frequency.value = 90;
-    gain.gain.setValueAtTime(0.7, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
-    osc.type = "sawtooth";
-  }
-
-  else if (type === "levelUp") {
-    osc.frequency.value = 700;
-    gain.gain.setValueAtTime(0.5, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.5);
-    osc.type = "triangle";
-  }
-
   osc.start();
-  osc.stop(ctx.currentTime + 0.5);
+  gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.3);
+  osc.stop(ctx.currentTime + 0.3);
 }
 
-/* ===========================
-   الوحوش + المستويات
-   =========================== */
-
+/* النظام */
 let level = 1;
-let monsterMaxHP = 100;
-let monsterHP = 100;
+let score = 0;
+let a = 1;
 
-/* قائمة الوحوش */
-const monsters = ["👹", "🐲", "👾", "🦂", "🐉", "👻", "🦁", "🐺"];
-let currentMonsterIndex = 0;
+/* الوحوش */
+const monsters = ["👹","🐲","👾","🦂","🐉","👻","🦁","🐺"];
+let currentMonster = 0;
+
+/* طاقة الوحش */
+let monsterMaxHP = 100;
+let monsterHP = monsterMaxHP;
 
 function updateMonster() {
-  currentMonsterIndex = (level - 1) % monsters.length;
-  document.getElementById("monster").innerHTML = monsters[currentMonsterIndex];
-
+  currentMonster = (level - 1) % monsters.length;
+  document.getElementById("monster").innerHTML = monsters[currentMonster];
   monsterMaxHP = 100 + (level - 1) * 20;
   monsterHP = monsterMaxHP;
-
   updateHPBar();
 }
 
-/* ===========================
-   شريط الطاقة
-   =========================== */
-
+/* شريط الطاقة */
 function updateHPBar() {
-  const hpPercent = (monsterHP / monsterMaxHP) * 100;
-  document.getElementById("hp").innerHTML = toArabic(hpPercent.toFixed(0));
-  document.getElementById("monster-hp-inner").style.width = hpPercent + "%";
+  let p = monsterHP / monsterMaxHP * 100;
+  document.getElementById("hp").innerHTML = toArabic(Math.round(p));
+  document.getElementById("monster-hp-inner").style.width = p + "%";
 }
 
-function shakeMonster() {
-  const m = document.getElementById("monster");
-  m.classList.add("monster-hit");
-  setTimeout(() => m.classList.remove("monster-hit"), 300);
-}
-
-/* ===========================
-   الأسئلة والهجوم
-   =========================== */
-
-let attackPower = 20;
-let score = 0;
-
+/* تحويل للأرقام العربية */
 function toArabic(n) {
   return n.toString().replace(/\d/g, d => "٠١٢٣٤٥٦٧٨٩"[d]);
 }
 
-let a = 1;
-
+/* سؤال جديد (١ إلى ١٠ فقط) */
 function newQuestion() {
-  a = Math.floor(Math.random() * 12) + 1;
+  a = Math.floor(Math.random() * 10) + 1;
   document.getElementById("question").innerHTML =
     "كم يساوي ٤ × " + toArabic(a) + " ؟";
-  document.getElementById("answer").value = "";
 }
 
+/* هجوم */
 function attack() {
-  const ans = parseInt(document.getElementById("answer").value);
-  const correct = a * 4;
-
-  if (ans === correct) {
-    successfulHit();
-  } else {
-    failedHit();
-  }
+  let ans = parseInt(document.getElementById("answer").value);
+  if (ans === a * 4) successfulHit();
+  else failedHit();
 }
 
+/* نجاح ✅ */
 function successfulHit() {
-  playSound("hit");
-  playSound("monsterCry");
+  playSound(500);
+  document.getElementById("monster").classList.add("monster-hit");
+  setTimeout(() => {
+    document.getElementById("monster").classList.remove("monster-hit");
+  }, 300);
 
-  const hero = document.getElementById("hero");
-  hero.classList.add("hero-attack");
-  setTimeout(() => hero.classList.remove("hero-attack"), 250);
-
-  shakeMonster();
-
-  monsterHP -= attackPower;
+  monsterHP -= 20;
   if (monsterHP < 0) monsterHP = 0;
 
   updateHPBar();
-
   score += 10;
   updateScore();
 
-  if (monsterHP === 0) {
-    winLevel();
-  } else {
-    newQuestion();
-  }
+  if (monsterHP === 0) winLevel();
+  else newQuestion();
 }
 
+/* فشل ❌ */
 function failedHit() {
-  playSound("fail");
-
+  playSound(200);
   monsterHP += 10;
   if (monsterHP > monsterMaxHP) monsterHP = monsterMaxHP;
-
   updateHPBar();
-
   score -= 5;
   if (score < 0) score = 0;
   updateScore();
 }
 
+/* الفوز بالمستوى */
 function winLevel() {
-  playSound("levelUp");
-
+  playSound(800);
   level++;
   document.getElementById("level").innerHTML = toArabic(level);
-
-  attackPower += 5;
-
   updateMonster();
-
   newQuestion();
 }
 
+/* تحديث النقاط */
 function updateScore() {
   document.getElementById("score").innerHTML = toArabic(score);
 }
