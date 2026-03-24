@@ -2,12 +2,12 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<title>مغامرة البطل – جدول ٤ (نسخة PRO)</title>
+<title>مغامرة البطل – جدول ٤</title>
 
 <style>
 body {
   margin: 0;
-  font-family: "Cairo", sans-serif;
+  font-family: "Arial", sans-serif;
   background: linear-gradient(#0d1b2a, #1b263b);
   color: #fff;
   text-align: center;
@@ -16,28 +16,15 @@ body {
 
 /* ====== عنوان اللعبة ====== */
 h1 {
-  font-size: 44px;
+  font-size: 48px;
   margin-top: 20px;
-  text-shadow: 0 0 25px #00eaff;
+  text-shadow: 0 0 20px #00eaff;
 }
 
-/* ====== زر الموسيقى ====== */
-.music-btn {
-  background: #ffdd00;
-  color: #000;
-  font-size: 22px;
-  padding: 10px 25px;
-  border-radius: 15px;
-  border: none;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
-/* ====== البطل ====== */
+/* ====== شخصية البطل ====== */
 #hero {
-  width: 200px;
-  margin: 30px auto 10px auto;
-  display: block;
+  width: 180px;
+  margin: 20px auto;
   animation: float 2s infinite ease-in-out;
 }
 
@@ -47,35 +34,18 @@ h1 {
   100% { transform: translateY(0);}
 }
 
-/* ====== مستوى اللاعب ====== */
-#level-box {
-  margin-top: 10px;
-  font-size: 26px;
-  color: #00eaff;
-  text-shadow: 0 0 10px #00eaff;
-}
-
-/* ====== الوحش ====== */
+/* ====== وحش الأرقام ====== */
 #monster-box {
-  width: 320px;
+  width: 300px;
   margin: 20px auto;
   padding: 20px;
   border-radius: 20px;
   background: #1f4068;
-  box-shadow: 0 0 25px #00eaff;
+  box-shadow: 0 0 20px #00eaff;
 }
 
 #monster {
-  width: 150px;
-  margin: auto;
-  display: block;
-  animation: monsterMove 1.5s infinite ease-in-out;
-}
-
-@keyframes monsterMove {
-  0% { transform: translateY(0);}
-  50% { transform: translateY(10px);}
-  100% { transform: translateY(0);}
+  font-size: 110px;
 }
 
 #monster-hp {
@@ -94,14 +64,12 @@ h1 {
   transition: width 0.5s;
 }
 
-/* ====== السؤال ====== */
+/* ====== سؤال المعركة ====== */
 #question {
   font-size: 32px;
   margin-top: 20px;
-  direction: rtl;
 }
 
-/* ====== المدخل ====== */
 input {
   padding: 12px;
   font-size: 26px;
@@ -126,14 +94,22 @@ button:hover {
   background: #72f5ff;
 }
 
-/* ====== تأثير الضربة ====== */
+/* ====== الضربات الخاصة ====== */
 #effect {
   font-size: 50px;
   height: 80px;
   margin-top: 20px;
 }
 
-/* ====== رسالة الفوز ====== */
+/* ====== مستوى اللاعب ====== */
+#level-box {
+  margin-top: 25px;
+  font-size: 26px;
+  color: #00eaff;
+  text-shadow: 0 0 10px #00eaff;
+}
+
+/* ====== الاحتفال بالفوز ====== */
 .victory {
   font-size: 50px;
   color: gold;
@@ -145,74 +121,40 @@ button:hover {
   0%,100% { text-shadow: 0 0 30px gold;}
   50% { text-shadow: 0 0 5px gold;}
 }
-
-/* ====== أسماء المدرسة والمعلم في الأسفل ====== */
-.footer-bar {
-  width: 100%;
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  padding: 10px 20px;
-  background: rgba(0,0,0,0.35);
-  display: flex;
-  justify-content: space-between;
-  font-size: 18px;
-  color: #ffdd88;
-}
 </style>
 </head>
+
 
 <body>
 
 <h1>⚔️ مغامرة البطل – جدول ٤ ⚔️</h1>
 
-<!-- زر تشغيل الموسيقى -->
-<button class="music-btn" onclick="toggleMusic()">🎵 تشغيل / إيقاف الموسيقى</button>
-
-<!-- موسيقى خلفية -->
-<audio id="bgMusic" loop>
-  https://cdn.pixabay.com/audio/2022/03/15/audio_1a2acda2cf.mp3
-</audio>
-
-<!-- أصوات -->
-<audio id="hitSound">
-  https://cdn.pixabay.com/audio/2022/03/15/audio_4460ec1e0a.mp3
-</audio>
-
-<audio id="winSound">
-  https://cdn.pixabay.com/audio/2021/09/20/audio_faa1c1e3aa.mp3
-</audio>
-
 <!-- ====== البطل ====== -->
-https://files.catbox.moe/7muv8m.png
+https://i.imgur.com/JmT9B1O.png
 
 <div id="level-box">مستواك: <span id="level">١</span></div>
 
 <!-- ====== الوحش ====== -->
 <div id="monster-box">
-  https://files.catbox.moe/b6uq2w.png
+  <div id="monster">👹</div>
   <div id="monster-hp">
     <div id="monster-hp-inner"></div>
   </div>
   <div>طاقة الوحش: <span id="hp">١٠٠</span>%</div>
 </div>
 
-<!-- ====== السؤال ====== -->
+<!-- ====== سؤال القتال ====== -->
 <div id="question">كم يساوي ٤ × ١ ؟</div>
 
 <input type="number" id="answer" placeholder="اكتب الجواب">
 <br>
-<button onclick="check()">⚡ هجوم</button>
+<button onclick="check()">هجوم ⚡</button>
 
 <div id="effect"></div>
 <div id="feedback" style="font-size:28px; margin-top:15px;"></div>
+
 <div id="victory-msg"></div>
 
-<!-- ====== أسفل الصفحة ====== -->
-<div class="footer-bar">
-  <div>مدرسة عاطوف المختلطة</div>
-  <div>المعلم محمد وجيه</div>
-</div>
 
 <script>
 /* ========== بيانات اللعبة ========== */
@@ -220,21 +162,7 @@ let monsterHP = 100;
 let a = 1;
 let level = 1;
 
-/* ====== تشغيل وإيقاف الموسيقى ====== */
-const bgMusic = document.getElementById("bgMusic");
-let musicPlaying = false;
-
-function toggleMusic() {
-  if (!musicPlaying) {
-    bgMusic.play();
-    musicPlaying = true;
-  } else {
-    bgMusic.pause();
-    musicPlaying = false;
-  }
-}
-
-/* ====== توليد سؤال جديد ====== */
+/* ====== توليد سؤال ====== */
 function newQuestion() {
   a = Math.floor(Math.random() * 5) + 1;
   document.getElementById("question").innerHTML =
@@ -244,7 +172,7 @@ function newQuestion() {
   document.getElementById("effect").innerHTML = "";
 }
 
-/* ====== أرقام عربية ====== */
+/* ====== تحويل للأرقام العربية ====== */
 function toArabic(n) {
   return n.toString().replace(/\d/g, d => "٠١٢٣٤٥٦٧٨٩"[d]);
 }
@@ -263,8 +191,6 @@ function check() {
 
 /* ====== نجاح الهجوم ====== */
 function attackSuccess() {
-  document.getElementById("hitSound").play();
-
   document.getElementById("feedback").innerHTML = "ضربة ناجحة! ✅";
   document.getElementById("effect").innerHTML = "🔥⚡";
 
@@ -293,9 +219,8 @@ function attackFail() {
   document.getElementById("monster-hp-inner").style.width = monsterHP + "%";
 }
 
-/* ====== عند الفوز ====== */
+/* ====== عند هزيمة الوحش ====== */
 function victory() {
-  document.getElementById("winSound").play();
   document.getElementById("victory-msg").innerHTML =
     "<div class='victory'>🎉 لقد هزمت الوحش! 🎉</div>";
 
@@ -305,7 +230,7 @@ function victory() {
   setTimeout(() => {
     monsterHP = 100;
     document.getElementById("hp").innerHTML = monsterHP;
-    document.getElementById("monster-hp-inner").style.width = "100%";
+    document.getElementById("monster-hp-inner").style.width = monsterHP + "%";
     document.getElementById("victory-msg").innerHTML = "";
     newQuestion();
   }, 3000);
