@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<title>مغامرة البطل – جدول ٤</title>
+<title>مغامرة الجمع – الصف الأول</title>
 
 <style>
 body {
@@ -204,7 +204,7 @@ button {
 
 <!-- شاشة البداية -->
 <div id="start-screen">
-  <h1>⚔️ مغامرة البطل ⚔️</h1>
+  <h1>✨ لعبة الجمع ✨</h1>
   <button id="start-btn">ابدأ اللعب</button>
 </div>
 
@@ -240,7 +240,7 @@ button {
 
 <!-- السؤال -->
 <div id="question" style="font-size:32px; margin-top:20px;">
-  كم يساوي ٤ × ١ ؟
+  كم يساوي ١ + ١ ؟
 </div>
 
 <input type="number" id="answer" placeholder="اكتب الجواب">
@@ -262,7 +262,7 @@ document.getElementById("start-btn").onclick = function() {
   updateMonster();
 };
 
-/* صوت داخلي */
+/* صوت */
 function playSound(freq, type="sine") {
   const ctx = new AudioContext();
   const osc = ctx.createOscillator();
@@ -279,7 +279,8 @@ function playSound(freq, type="sine") {
 /* النظام */
 let level = 1;
 let score = 0;
-let a = 1;
+let x = 1;
+let y = 1;
 
 /* الوحوش */
 const monsters = ["👹","🐲","👾","🦂","🐉","👻","🦁","🐺"];
@@ -309,24 +310,25 @@ function toArabic(n) {
   return n.toString().replace(/\d/g, d => "٠١٢٣٤٥٦٧٨٩"[d]);
 }
 
-/* سؤال جديد — من ١ إلى ١٠ */
+/* سؤال جديد — جمع ≤ ١٠ */
 function newQuestion() {
-  a = Math.floor(Math.random() * 10) + 1;
+  x = Math.floor(Math.random() * 6) + 1;
+  y = Math.floor(Math.random() * (10 - x + 1));
+
   document.getElementById("question").innerHTML =
-    "كم يساوي ٤ × " + toArabic(a) + " ؟";
+    "كم يساوي " + toArabic(x) + " + " + toArabic(y) + " ؟";
 }
 
 /* الهجوم */
 function attack() {
   let ans = parseInt(document.getElementById("answer").value);
 
-  if (ans === a * 4) successfulHit();
+  if (ans === x + y) successfulHit();
   else failedHit();
 
-  /* ✅ مسح الإجابة بعد ثانيتين */
   setTimeout(() => {
     document.getElementById("answer").value = "";
-  }, 2000);
+  }, 1000);
 }
 
 /* نجاح ✅ */
