@@ -191,6 +191,7 @@ button {
   cursor: pointer;
 }
 
+/* المدرسة */
 #footer {
   margin-top: 25px;
   font-size: 20px;
@@ -254,7 +255,7 @@ button {
 </div>
 
 <script>
-/* إخفاء شاشة البداية */
+/* شاشة البداية */
 document.getElementById("start-btn").onclick = function() {
   document.getElementById("start-screen").style.display = "none";
   newQuestion();
@@ -308,18 +309,24 @@ function toArabic(n) {
   return n.toString().replace(/\d/g, d => "٠١٢٣٤٥٦٧٨٩"[d]);
 }
 
-/* سؤال جديد (١ إلى ١٠ فقط) */
+/* سؤال جديد — من ١ إلى ١٠ */
 function newQuestion() {
   a = Math.floor(Math.random() * 10) + 1;
   document.getElementById("question").innerHTML =
     "كم يساوي ٤ × " + toArabic(a) + " ؟";
 }
 
-/* هجوم */
+/* الهجوم */
 function attack() {
   let ans = parseInt(document.getElementById("answer").value);
+
   if (ans === a * 4) successfulHit();
   else failedHit();
+
+  /* ✅ مسح الإجابة بعد ثانيتين */
+  setTimeout(() => {
+    document.getElementById("answer").value = "";
+  }, 2000);
 }
 
 /* نجاح ✅ */
@@ -352,7 +359,7 @@ function failedHit() {
   updateScore();
 }
 
-/* الفوز بالمستوى */
+/* الفوز */
 function winLevel() {
   playSound(800);
   level++;
