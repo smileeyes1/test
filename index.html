@@ -2,377 +2,297 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<title>مغامرة الجمع – الصف الأول</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>مدرسة عاطوف المختلطة – مغامرة البطل الحكيم</title>
 
 <style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(#0a1a2f, #112d4e);
-  color: #fff;
-  text-align: center;
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:linear-gradient(135deg,#e3f2fd,#f1f8e9);
+  color:#2c3e50;
+  text-align:center;
 }
 
-/* إطار اللعبة */
-#game-container {
-  width: 480px;
-  margin: 30px auto;
-  padding: 25px;
-  border-radius: 20px;
-  background: rgba(255,255,255,0.06);
-  box-shadow: 0 0 25px #00eaff;
+/* ===== إضافة تقنية: شريط التقدم ===== */
+.progress-container{
+  width:100%;
+  height:8px;
+  background:#d0d7de;
+  border-radius:10px;
+  overflow:hidden;
+  margin-bottom:20px;
+}
+.progress-bar{
+  height:100%;
+  width:0%;
+  background:#2e7d32;
+  transition:width .6s ease;
 }
 
-/* شاشة البداية */
-#start-screen {
-  position: fixed;
-  inset: 0;
-  background: linear-gradient(#062241, #0a1a2f);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
+.container{
+  max-width:1000px;
+  margin:20px auto;
+  background:#fff;
+  padding:30px;
+  border-radius:30px;
+  box-shadow:0 15px 40px rgba(0,0,0,.15)
 }
 
-#start-screen h1 {
-  font-size: 55px;
-  margin-bottom: 30px;
-  text-shadow: 0 0 20px #00eaff;
+/* ===== إضافة تقنية: انتقالات ===== */
+.section{
+  display:none;
+  animation: fade .6s ease-in-out;
+}
+.section.active{display:block}
+
+@keyframes fade{
+  from{opacity:0; transform:translateY(18px)}
+  to{opacity:1; transform:none}
 }
 
-#start-btn {
-  padding: 18px 45px;
-  font-size: 30px;
-  border: none;
-  border-radius: 15px;
-  background: #00eaff;
-  color: #000;
-  cursor: pointer;
+h1{color:#0d47a1;font-size:36px}
+h2{color:#1b5e20}
+h3{color:#37474f;margin-top:30px}
+p{font-size:22px;line-height:1.9}
+
+button{
+  font-size:20px;
+  padding:14px 30px;
+  margin:12px;
+  border:none;
+  border-radius:20px;
+  cursor:pointer
+}
+.primary{background:#2e7d32;color:#fff}
+.secondary{background:#1565c0;color:#fff}
+
+.box{
+  background:#f9fbe7;
+  border-radius:20px;
+  padding:20px;
+  margin:25px 0;
+  box-shadow:0 5px 20px rgba(0,0,0,.1)
 }
 
-/* ====== البطل ====== */
-#hero {
-  width: 160px;
-  height: 230px;
-  margin: 20px auto;
-  position: relative;
-  animation: hero-float 2.2s infinite;
-}
-
-#hero .head {
-  width: 75px;
-  height: 75px;
-  background: #ffddb0;
-  border-radius: 50%;
-  margin: auto;
-  border: 5px solid #c79a53;
-}
-
-#hero .helmet {
-  width: 90px;
-  height: 55px;
-  background: #444;
-  border-radius: 50% 50% 20% 20%;
-  position: absolute;
-  top: -10px;
-  left: 35px;
-  border: 4px solid #222;
-}
-
-#hero .helmet::after {
-  content: "";
-  width: 22px;
-  height: 45px;
-  background: red;
-  position: absolute;
-  top: -45px;
-  left: 50%;
-  transform: translateX(-50%);
-  border-radius: 10px;
-}
-
-#hero .body {
-  width: 60px;
-  height: 110px;
-  background: #1976ff;
-  margin: auto;
-  margin-top: -5px;
-  border-radius: 12px;
-  border: 5px solid #0a3a74;
-}
-
-#hero .armor {
-  width: 55px;
-  height: 65px;
-  background: #d4d4d4;
-  margin: auto;
-  margin-top: -95px;
-  border-radius: 10px;
-  border: 4px solid #aaa;
-}
-
-#hero .sword {
-  width: 14px;
-  height: 110px;
-  background: silver;
-  position: absolute;
-  right: -30px;
-  top: 60px;
-  border-radius: 7px;
-  border: 2px solid #ccc;
-}
-
-@keyframes hero-float {
-  0% { transform: translateY(0);}
-  50% { transform: translateY(-10px);}
-  100% { transform: translateY(0);}
-}
-
-/* ====== الوحش ====== */
-#monster-box {
-  background: #1f4068;
-  padding: 20px;
-  margin-top: 15px;
-  border-radius: 20px;
-  box-shadow: 0 0 15px #00eaff;
-}
-
-#monster {
-  font-size: 110px;
-  transition: 0.2s;
-}
-
-.monster-hit {
-  animation: monster-shake 0.3s;
-}
-
-@keyframes monster-shake {
-  0% { transform: translateX(0);}
-  25% { transform: translateX(-10px);}
-  50% { transform: translateX(10px);}
-  75% { transform: translateX(-10px);}
-  100% { transform: translateX(0);}
-}
-
-/* شريط الطاقة */
-#monster-hp {
-  width: 90%;
-  height: 25px;
-  background: #333;
-  margin: 10px auto;
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-#monster-hp-inner {
-  width: 100%;
-  height: 100%;
-  background: #29ff74;
-  transition: 0.4s;
-}
-
-input {
-  padding: 12px;
-  font-size: 26px;
-  border: none;
-  border-radius: 10px;
-  width: 200px;
-  text-align: center;
-}
-
-button {
-  padding: 15px 35px;
-  font-size: 28px;
-  margin-top: 15px;
-  background: #00eaff;
-  border: none;
-  border-radius: 15px;
-  cursor: pointer;
-}
-
-/* المدرسة */
-#footer {
-  margin-top: 25px;
-  font-size: 20px;
-  color: #90e0ef;
+/* ===== إضافة تقنية: تشجيع بصري خفيف ===== */
+.encourage{
+  margin-top:20px;
+  font-size:20px;
+  color:#33691e;
+  font-weight:bold;
 }
 </style>
 </head>
 
 <body>
+<div class="container">
 
-<!-- شاشة البداية -->
-<div id="start-screen">
-  <h1>✨ لعبة الجمع ✨</h1>
-  <button id="start-btn">ابدأ اللعب</button>
+<!-- شريط التقدم -->
+<div class="progress-container">
+  <div id="progress" class="progress-bar"></div>
 </div>
 
-<div id="game-container">
+<!-- =========================
+     الغلاف المدرسي الرسمي
+========================= -->
+<section id="s0" class="section active">
+  <h1>مدرسة عاطوف المختلطة</h1>
+  <h2>عرض برنامج تعليمي ذكي</h2>
 
-<!-- البطل -->
-<div id="hero">
-  <div class="head"></div>
-  <div class="helmet"></div>
-  <div class="body"></div>
-  <div class="armor"></div>
-  <div class="sword"></div>
-</div>
-
-<!-- المستوى -->
-<div style="font-size:30px; color:#00eaff;">
-  مستواك: <span id="level">١</span>
-</div>
-
-<!-- النقاط -->
-<div style="font-size:26px; margin-top:10px; color:#00eaff;">
-  نقاطك: <span id="score">٠</span>
-</div>
-
-<!-- الوحش -->
-<div id="monster-box">
-  <div id="monster">👹</div>
-  <div id="monster-hp"><div id="monster-hp-inner"></div></div>
-  <div style="font-size: 22px;">
-    طاقة الوحش: <span id="hp">١٠٠</span>%
+  <div class="box">
+    <p>
+      <strong>اسم البرنامج:</strong><br>
+      مغامرة البطل الحكيم
+    </p>
+    <p>
+      <strong>المعلم المشرف:</strong><br>
+      محمد وجيه
+    </p>
   </div>
-</div>
 
-<!-- السؤال -->
-<div id="question" style="font-size:32px; margin-top:20px;">
-  كم يساوي ١ + ١ ؟
-</div>
+  <p>
+    هذا العرض يقدّم نموذجًا لتعليم الرياضيات
+    بطريقة تفاعلية ذكية،
+    تراعي الفروق الفردية،
+    وتوفّر أمانًا نفسيًا للطلبة.
+  </p>
 
-<input type="number" id="answer" placeholder="اكتب الجواب">
-<br>
-<button onclick="attack()">هجوم ⚡</button>
+  <button class="primary" onclick="go(1)">ابدأ العرض المدرسي</button>
+</section>
 
-</div>
+<!-- =========================
+     الفلسفة التربوية
+========================= -->
+<section id="s1" class="section">
+  <h2>الفلسفة التربوية للبرنامج</h2>
 
-<!-- المدرسة -->
-<div id="footer">
-  👨‍🏫 المعلم: محمد وجيه — 🏫 مدرسة عاطوف المختلطة
+  <div class="box">
+    <p>
+      يعتمد برنامج <strong>مغامرة البطل الحكيم</strong> على
+      التعليم البنائي،
+      حيث يُبنى الفهم خطوة بخطوة،
+      ويُعتبر الخطأ مرحلة طبيعية من التعلم.
+    </p>
+
+    <p>
+      التركيز الأساسي ليس على النتيجة،
+      بل على:
+      <br>• طريقة التفكير  
+      <br>• المحاولة  
+      <br>• الشعور بالأمان أثناء التعلم
+    </p>
+  </div>
+
+  <button class="secondary" onclick="go(2)">الأمان النفسي</button>
+</section>
+
+<!-- =========================
+     الأمان النفسي
+========================= -->
+<section id="s2" class="section">
+  <h2>الأمان النفسي للطلبة</h2>
+
+  <div class="box">
+    <p>
+      يلتزم البرنامج بالمعايير التالية:
+    </p>
+    <p>
+      • لا مقارنة بين الطلبة  
+      <br>• لا رسائل سلبية  
+      <br>• لا استعجال في الإجابة  
+      <br>• لغة تشجيع مستمرة  
+    </p>
+    <p>
+      الهدف هو أن يشعر الطالب بأن
+      الصف مكان آمن للتجربة والتفكير.
+    </p>
+  </div>
+
+  <button class="secondary" onclick="go(3)">دور الذكاء التربوي</button>
+</section>
+
+<!-- =========================
+     الذكاء التربوي
+========================= -->
+<section id="s3" class="section">
+  <h2>دور الذكاء التربوي في البرنامج</h2>
+
+  <div class="box">
+    <p>
+      يستخدم البرنامج ذكاءً تربويًا بسيطًا
+      يعمل داخل النظام نفسه،
+      دون إنترنت أو خدمات خارجية.
+    </p>
+
+    <p>
+      هذا الذكاء:
+      <br>• يكيّف مستوى الصعوبة تلقائيًا  
+      <br>• يغيّر أسلوب الشرح عند الحاجة  
+      <br>• يدعم الطالب نفسيًا بالكلمات  
+    </p>
+
+    <p>
+      ولا يقوم بـ:
+      <br>• تقييم الطالب  
+      <br>• تصنيفه  
+      <br>• إعطاء الحل مباشرة  
+    </p>
+  </div>
+
+  <button class="secondary" onclick="go(4)">تجربة الطالب</button>
+</section>
+
+<!-- =========================
+     تجربة الطالب
+========================= -->
+<section id="s4" class="section">
+  <h2>كيف يتعلم الطالب داخل البرنامج</h2>
+
+  <div class="box">
+    <p>
+      يمر الطالب بالمراحل التالية:
+    </p>
+    <p>
+      1. قصة تعليمية مبسطة  
+      <br>2. تمثيل بصري للمفهوم  
+      <br>3. سؤال تفاعلي  
+      <br>4. تشجيع أو دعم حسب الإجابة  
+    </p>
+
+    <p>
+      كل ذلك يتم بهدوء،
+      ووفق وتيرة تناسب الطالب.
+    </p>
+  </div>
+
+  <div id="encourage" class="encourage"></div>
+
+  <button class="secondary" onclick="go(5)">التقرير الختامي</button>
+</section>
+
+<!-- =========================
+     التقرير
+========================= -->
+<section id="s5" class="section">
+  <h2>التقرير النهائي</h2>
+
+  <div class="box">
+    <p>
+      في نهاية النشاط،
+      يحصل المعلم أو ولي الأمر على
+      تقرير توجيهي يوضح:
+    </p>
+
+    <p>
+      • كيفية تفاعل الطالب  
+      <br>• تقدّمه أثناء النشاط  
+      <br>• نقاط القوة  
+    </p>
+
+    <p>
+      التقرير لا يُستخدم للمحاسبة،
+      بل للدعم والمتابعة.
+    </p>
+  </div>
+
+  <p>
+    <strong>
+      نشكركم على وقتكم،
+      ونسعد باستخدام هذا البرنامج
+      في خدمة طلبة
+      مدرسة عاطوف المختلطة.
+    </strong>
+  </p>
+
+  <button class="primary" onclick="location.reload()">إعادة العرض</button>
+</section>
+
 </div>
 
 <script>
-/* شاشة البداية */
-document.getElementById("start-btn").onclick = function() {
-  document.getElementById("start-screen").style.display = "none";
-  newQuestion();
-  updateMonster();
-};
+/* إضافة تقنية فقط */
+const totalSections = 6;
+const phrases = [
+  "تفكيرك مهم 🌱",
+  "خذ وقتك، لا استعجال 👌",
+  "المحاولة بحد ذاتها نجاح ⭐",
+  "أنت تتعلم بخطوات واثقة 💡"
+];
 
-/* صوت */
-function playSound(freq, type="sine") {
-  const ctx = new AudioContext();
-  const osc = ctx.createOscillator();
-  const gain = ctx.createGain();
-  osc.type = type;
-  osc.frequency.value = freq;
-  osc.connect(gain);
-  gain.connect(ctx.destination);
-  osc.start();
-  gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.3);
-  osc.stop(ctx.currentTime + 0.3);
-}
+function go(n){
+  document.querySelectorAll(".section")
+    .forEach(s=>s.classList.remove("active"));
+  document.getElementById("s"+n).classList.add("active");
+  document.getElementById("progress").style.width =
+    ((n+1)/totalSections*100)+"%";
 
-/* النظام */
-let level = 1;
-let score = 0;
-let x = 1;
-let y = 1;
-
-/* الوحوش */
-const monsters = ["👹","🐲","👾","🦂","🐉","👻","🦁","🐺"];
-let currentMonster = 0;
-
-/* طاقة الوحش */
-let monsterMaxHP = 100;
-let monsterHP = monsterMaxHP;
-
-function updateMonster() {
-  currentMonster = (level - 1) % monsters.length;
-  document.getElementById("monster").innerHTML = monsters[currentMonster];
-  monsterMaxHP = 100 + (level - 1) * 20;
-  monsterHP = monsterMaxHP;
-  updateHPBar();
-}
-
-/* شريط الطاقة */
-function updateHPBar() {
-  let p = monsterHP / monsterMaxHP * 100;
-  document.getElementById("hp").innerHTML = toArabic(Math.round(p));
-  document.getElementById("monster-hp-inner").style.width = p + "%";
-}
-
-/* تحويل للأرقام العربية */
-function toArabic(n) {
-  return n.toString().replace(/\d/g, d => "٠١٢٣٤٥٦٧٨٩"[d]);
-}
-
-/* سؤال جديد — جمع ≤ ١٠ */
-function newQuestion() {
-  x = Math.floor(Math.random() * 6) + 1;
-  y = Math.floor(Math.random() * (10 - x + 1));
-
-  document.getElementById("question").innerHTML =
-    "كم يساوي " + toArabic(x) + " + " + toArabic(y) + " ؟";
-}
-
-/* الهجوم */
-function attack() {
-  let ans = parseInt(document.getElementById("answer").value);
-
-  if (ans === x + y) successfulHit();
-  else failedHit();
-
-  setTimeout(() => {
-    document.getElementById("answer").value = "";
-  }, 1000);
-}
-
-/* نجاح ✅ */
-function successfulHit() {
-  playSound(500);
-  document.getElementById("monster").classList.add("monster-hit");
-  setTimeout(() => {
-    document.getElementById("monster").classList.remove("monster-hit");
-  }, 300);
-
-  monsterHP -= 20;
-  if (monsterHP < 0) monsterHP = 0;
-
-  updateHPBar();
-  score += 10;
-  updateScore();
-
-  if (monsterHP === 0) winLevel();
-  else newQuestion();
-}
-
-/* فشل ❌ */
-function failedHit() {
-  playSound(200);
-  monsterHP += 10;
-  if (monsterHP > monsterMaxHP) monsterHP = monsterMaxHP;
-  updateHPBar();
-  score -= 5;
-  if (score < 0) score = 0;
-  updateScore();
-}
-
-/* الفوز */
-function winLevel() {
-  playSound(800);
-  level++;
-  document.getElementById("level").innerHTML = toArabic(level);
-  updateMonster();
-  newQuestion();
-}
-
-/* تحديث النقاط */
-function updateScore() {
-  document.getElementById("score").innerHTML = toArabic(score);
+  if(n===4){
+    document.getElementById("encourage").innerText =
+      phrases[Math.floor(Math.random()*phrases.length)];
+  }
 }
 </script>
 
